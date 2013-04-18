@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="prj.src.rateit"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="prj.src.rateit.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="prj.src.rateit.OwnersLogin"
+            android:label="@string/title_activity_owners_login"
+            android:parentActivityName="prj.src.rateit.OwnersLogin"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="prj.src.rateit.OwnersLogin" />
+        </activity>
+        <activity
+            android:name="prj.src.rateit.AddBusiness"
+            android:label="@string/title_activity_add_business"
+            android:parentActivityName="prj.src.rateit.AddBusiness" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="prj.src.rateit.AddBusiness" />
+        </activity>
+        <activity
+            android:name="prj.src.rateit.CreateAccount"
+            android:label="@string/title_activity_create_account"
+            android:parentActivityName="prj.src.rateit.CreateAccount" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="prj.src.rateit.CreateAccount" />
+        </activity>
+    </application>
+
+</manifest>
