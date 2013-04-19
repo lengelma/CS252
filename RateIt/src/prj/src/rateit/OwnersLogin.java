@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import java.sql.*;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -53,6 +54,7 @@ public class OwnersLogin extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_owners_login);
