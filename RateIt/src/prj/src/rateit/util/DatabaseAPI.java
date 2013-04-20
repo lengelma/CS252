@@ -171,7 +171,7 @@ public class DatabaseAPI {
 	
 	/**
 	 *Checks to see if an email address already exists inside the owners table
-	 *returns true if it exists
+	 *returns true if it exists 
 	 *returns false otherwise
 	 */
 	public boolean emailExists(String email){
