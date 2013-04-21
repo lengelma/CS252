@@ -17,6 +17,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="164dp"
         android:textColor="@color/white_text"
+        android:onClick="customersFrame"
         android:text="@string/customer" />
 
     <Button

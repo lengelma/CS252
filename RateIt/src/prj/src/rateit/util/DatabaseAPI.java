@@ -316,5 +316,19 @@ public class DatabaseAPI {
 			rateBuisness(con, business);
 		}catch(Exception err){}
 		
+
+	}
+	public static void test(){
+		try{
+			
+			System.out.println("IM DOIN STUFF!\n");
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://data.cs.purdue.edu:33066/lab6v1","user","cs252");
+			PreparedStatement stat = con.prepareStatement("INSERT INTO users (email,password,firstName,lastName) VALUES ('lol@test.com','password','lee','engelman')");
+			stat.executeUpdate();
+			
+		}catch(Exception err){
+			System.out.println(err.toString());
+		}
 	}
 }
