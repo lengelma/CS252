@@ -105,7 +105,7 @@ public class DatabaseAPI {
 			//TODO STUFF
 			
 			PreparedStatement stat = con.prepareStatement("SELECT password FROM owners WHERE email LIKE ?");
-			stat.setString(1, email);
+			stat.setString(1, user);
 			ResultSet r = stat.executeQuery();
 			
 			//check to see if this is valid or not, the idea is if there's not match, skip to false
@@ -158,7 +158,7 @@ public class DatabaseAPI {
 			r = stat.executeQuery();
 			r.next();
 			x = r.getInt(1)+1;
-			count = count/x;
+			counter = counter/x;
 			stat = con.prepareStatement("UPDATE business SET rating=?, numberOfRates=? WHERE businessName LIKE ?");
 			stat.setInt(1, counter);
 			stat.setInt(2, x);
@@ -178,17 +178,21 @@ public class DatabaseAPI {
 	 *returns false otherwise
 	 */
 	public boolean emailExists(String email){
-		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+		try{
+			Class.forName("com.gjt.mm.mysql.Driver");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+			
+			PreparedStatement stat = con.prepareStatement("SELECT email FROM owners WHERE email LIKE ?");
+			stat.setString(1, email);
+			ResultSet r = stat.executeQuery();
+			
+			if(r.next())
+				return true;
+			else
+				return false;
+		}catch(Exception err){}
 		
-		PreparedStatement stat = con.prepareStatement("SELECT email FROM owners WHERE email LIKE ?");
-		stat.setString(1, email);
-		ResultSet r = stat.executeQuery();
-		
-		if(r.next())
-			return true;
-		else
-			return false;
+		return false;
 	}
 	
 	/**
@@ -197,17 +201,20 @@ public class DatabaseAPI {
 	 * returns false otherwise
 	 */
 	public boolean businessExists(String business){
-		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
-		
-		PreparedStatement stat = con.prepareStatement("SELECT businessName FROM business WHERE businessName LIKE ?");
-		stat.setString(1, business);
-		ResultSet r = stat.executeQuery();
+		try{
+			Class.forName("com.gjt.mm.mysql.Driver");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 			
-		if(r.next())
-			return true;
-		else
-			return false;
+			PreparedStatement stat = con.prepareStatement("SELECT businessName FROM business WHERE businessName LIKE ?");
+			stat.setString(1, business);
+			ResultSet r = stat.executeQuery();
+				
+			if(r.next())
+				return true;
+			else
+				return false;
+		}catch(Exception err){}
+		return false;
 	}
 	
 	/**
@@ -215,13 +222,17 @@ public class DatabaseAPI {
 	 * Returns a ResultSet object containing all names
 	 */
 	public ResultSet getOwnersBusiness(String email){
-		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+		try{
+			Class.forName("com.gjt.mm.mysql.Driver");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+			
+			PreparedStatement stat = con.prepareStatement("SELECT businessName FROM business WHERE email LIKE ?");
+			stat.setString(1, email);
+			ResultSet r = stat.executeQuery();
+			return r;
+		}catch(Exception err){}
 		
-		PreparedStatement stat = con.prepareStatement("SELECT businessName FROM business WHERE email LIKE ?");
-		stat.setString(1, email);
-		ResultSet r = stat.executeQuery();
-		return r;
+		return null;
 	}
 	
 	/**
@@ -229,12 +240,17 @@ public class DatabaseAPI {
 	 * Returns them as a ResultSet object
 	 */
 	public ResultSet getAllBusiness(){
-		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 		
-		PreparedStatement stat = con.prepareStatement("SELECT businessName FROM business");
-		ResultSet r = stat.executeQuery();
-		return r;
+		try{
+			Class.forName("com.gjt.mm.mysql.Driver");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+			
+			PreparedStatement stat = con.prepareStatement("SELECT businessName FROM business");
+			ResultSet r = stat.executeQuery();
+			return r;
+		}catch(Exception err){}
+		
+		return null;
 	}
 	/**
 	 * Retrieves information for the chosen business from the business table
@@ -242,15 +258,19 @@ public class DatabaseAPI {
 	 * Currently only works properly if there is only one business of that name in the table
 	 */
 	public ResultSet getBusinessInfo(String business){
-		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+		try{
+			Class.forName("com.gjt.mm.mysql.Driver");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+			
+			PreparedStatement stat = con.prepareStatement("SELECT businessName, description, address, monHours, tueHours," +
+					"wedHours, thrHours, friHours, satHours, sunHours, rating, website FROM business WHERE businessName LIKE ?");
+			//PreparedStatement stat = con.prepareStatement("SELECT * FROM business WHERE businessName LIKE ?");
+			stat.setString(1, business);
+			ResultSet r = stat.executeQuery();
+			return r;
+		}catch(Exception err){}
 		
-		PreparedStatement stat = con.prepareStatement("SELECT businessName, description, address, monHours, tueHours," +
-				"wedHours, thrHours, friHours, satHours, sunHours, rating, website FROM business WHERE businessName LIKE ?");
-		//PreparedStatement stat = con.prepareStatement("SELECT * FROM business WHERE businessName LIKE ?");
-		stat.setString(1, business);
-		ResultSet r = stat.executeQuery();
-		return r;
+		return null;
 	}
 	/**
 	 * Allows an owner to change all information about a business with name oName
@@ -258,38 +278,43 @@ public class DatabaseAPI {
 	 * Currently only works properly if there is only one business with the name in the table
 	 */
 	public void updateBusiness(String oName, String email, String business, String des, String address, String web, String m, String t, String w, String r, String f, String s, String u){
-		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
-		
-		PreparedStatement stat = con.prepareStatement("UPDATE business SET businessName=?, description=?, address=?, monHours=?, tueHours=?," +
-				" wedHours=?, thrHours=?, friHours=?, satHours=?, sunHours=?, website=? WHERE businessName LIKE ?");
-		stat.setString(1, business);
-		stat.setString(2, des);
-		stat.setString(3, address);
-		stat.setString(4, m);
-		stat.setString(5, t);
-		stat.setString(6, w);
-		stat.setString(7, r);
-		stat.setString(8, f);
-		stat.setString(9, s);
-		stat.setString(10, u);
-		stat.setString(11, web);
-		stat.setString(12, oName);
-		stat.executeUpdate();
+		try{
+			Class.forName("com.gjt.mm.mysql.Driver");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+			
+			PreparedStatement stat = con.prepareStatement("UPDATE business SET businessName=?, description=?, address=?, monHours=?, tueHours=?," +
+					" wedHours=?, thrHours=?, friHours=?, satHours=?, sunHours=?, website=? WHERE businessName LIKE ?");
+			stat.setString(1, business);
+			stat.setString(2, des);
+			stat.setString(3, address);
+			stat.setString(4, m);
+			stat.setString(5, t);
+			stat.setString(6, w);
+			stat.setString(7, r);
+			stat.setString(8, f);
+			stat.setString(9, s);
+			stat.setString(10, u);
+			stat.setString(11, web);
+			stat.setString(12, oName);
+			stat.executeUpdate();
+		}catch(Exception err){}
 	}
 	/**
 	 * Allows a user to enter a row with comment and rating into the users table
 	 * Also, updates the business' rating in the business table
 	 */
 	public void commentRate(int rate, String comment, String business){
-		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+		try{
+			Class.forName("com.gjt.mm.mysql.Driver");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+			
+			PreparedStatement stat = con.prepareStatement("INSERT INTO users (businessName, comment, rating) VALUES (?,?,?)");
+			stat.setString(1, business);
+			stat.setString(2, comment);
+			stat.setInt(3, rate);
+			stat.executeUpdate();
+			rateBuisness(con, business);
+		}catch(Exception err){}
 		
-		PreparedStatement stat = con.prepareStatement("INSERT INTO users (businessName, comment, rating) VALUES (?,?,?)");
-		stat.setString(1, business);
-		stat.setString(2, comment);
-		stat.setInt(3, rate);
-		stat.executeUpdate();
-		updateRating(con, business);
 	}
 }
