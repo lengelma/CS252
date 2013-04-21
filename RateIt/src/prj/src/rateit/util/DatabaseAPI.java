@@ -1,7 +1,10 @@
 package prj.src.rateit.util;
 
 import java.sql.*;
-
+/*NOTE
+ * I'm not sure if the ip address in the url is correct or not.
+ * However, the server will be listening to port 33066, so that part is correct
+ */
 
 /**
  * Database Name: lab6v1 contains 3 tables: business, owners, users
@@ -40,7 +43,7 @@ public class DatabaseAPI {
 	public int addOwner(String email, String password, String first, String last){
 		try{
 			Class.forName("com.gjt.mm.mysql.Driver");
-			Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 			//TODO STUFF
 			//con.createStatement().execute("INSERT INTO `` (`name`, `address`) VALUES ('Bob', '123 Fake Street')");
 
@@ -64,7 +67,7 @@ public class DatabaseAPI {
 	public int addBuisness(String email, String business, String des, String address, String web, String m, String t, String w, String r, String f, String s, String u){
 		try{
 			Class.forName("com.gjt.mm.mysql.Driver");
-			Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 			//TODO STUFF
 			//con.createStatement().execute("INSERT INTO `people` (`name`, `address`) VALUES ('Bob', '123 Fake Street')");
 			PreparedStatement stat = con.prepareStatement("INSERT INTO business (email, businessName, description, address, monHours, tueHours, wedHours, thrHours, friHours, " +
@@ -98,7 +101,7 @@ public class DatabaseAPI {
 	public boolean login(String user,String password){
 		try{
 			Class.forName("com.gjt.mm.mysql.Driver");
-			Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 			//TODO STUFF
 			
 			PreparedStatement stat = con.prepareStatement("SELECT password FROM owners WHERE email LIKE ?");
@@ -138,7 +141,7 @@ public class DatabaseAPI {
 	public int rateBuisness(Connection con, String business){
 		try{
 			//Class.forName("com.gjt.mm.mysql.Driver");
-			//Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+			//Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 			//TODO STUFF
 			//con.createStatement().execute("INSERT INTO `people` (`name`, `address`) VALUES ('Bob', '123 Fake Street')");
 			PreparedStatement stat = con.prepareStatement("SELECT rating FROM users WHERE businessName LIKE ?");
@@ -176,7 +179,7 @@ public class DatabaseAPI {
 	 */
 	public boolean emailExists(String email){
 		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 		
 		PreparedStatement stat = con.prepareStatement("SELECT email FROM owners WHERE email LIKE ?");
 		stat.setString(1, email);
@@ -195,7 +198,7 @@ public class DatabaseAPI {
 	 */
 	public boolean businessExists(String business){
 		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 		
 		PreparedStatement stat = con.prepareStatement("SELECT businessName FROM business WHERE businessName LIKE ?");
 		stat.setString(1, business);
@@ -213,7 +216,7 @@ public class DatabaseAPI {
 	 */
 	public ResultSet getOwnersBusiness(String email){
 		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 		
 		PreparedStatement stat = con.prepareStatement("SELECT businessName FROM business WHERE email LIKE ?");
 		stat.setString(1, email);
@@ -227,7 +230,7 @@ public class DatabaseAPI {
 	 */
 	public ResultSet getAllBusiness(){
 		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 		
 		PreparedStatement stat = con.prepareStatement("SELECT businessName FROM business");
 		ResultSet r = stat.executeQuery();
@@ -240,7 +243,7 @@ public class DatabaseAPI {
 	 */
 	public ResultSet getBusinessInfo(String business){
 		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 		
 		PreparedStatement stat = con.prepareStatement("SELECT businessName, description, address, monHours, tueHours," +
 				"wedHours, thrHours, friHours, satHours, sunHours, rating, website FROM business WHERE businessName LIKE ?");
@@ -256,7 +259,7 @@ public class DatabaseAPI {
 	 */
 	public void updateBusiness(String oName, String email, String business, String des, String address, String web, String m, String t, String w, String r, String f, String s, String u){
 		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 		
 		PreparedStatement stat = con.prepareStatement("UPDATE business SET businessName=?, description=?, address=?, monHours=?, tueHours=?," +
 				" wedHours=?, thrHours=?, friHours=?, satHours=?, sunHours=?, website=? WHERE businessName LIKE ?");
@@ -280,7 +283,7 @@ public class DatabaseAPI {
 	 */
 	public void commentRate(int rate, String comment, String business){
 		Class.forName("com.gjt.mm.mysql.Driver");
-		Connection con =  DriverManager.getConnection("jdbc:mysql://blahblahblah", "root", "");
+		Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
 		
 		PreparedStatement stat = con.prepareStatement("INSERT INTO users (businessName, comment, rating) VALUES (?,?,?)");
 		stat.setString(1, business);
