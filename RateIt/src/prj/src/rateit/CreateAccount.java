@@ -1,22 +1,52 @@
 package prj.src.rateit;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.text.TextUtils;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 public class CreateAccount extends Activity {
 
+	private EditText firstNameView;
+	private EditText lastNameView;
+	private EditText emailAddressView;
+	private EditText passwordView;
+	private EditText confirmPasswordView;
+	
+	private String firstName;
+	private String lastName;
+	private String emailAddress;
+	private String password;
+	private String confirmPassword;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_account);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		//Set the required fields
+		LinearLayout layout=(LinearLayout)findViewById(R.id.LinearLayout_createAccount);
+		setFields(layout);
 	}
+	
+	public void setFields(LinearLayout layout){
+		firstNameView = (EditText)layout.getChildAt(1);
+		lastNameView = (EditText)layout.getChildAt(3);
+		emailAddressView = (EditText)layout.getChildAt(5);
+		passwordView = (EditText)layout.getChildAt(7);
+		confirmPasswordView = (EditText)layout.getChildAt(9);
+	}
+	
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -28,12 +58,6 @@ public class CreateAccount extends Activity {
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.create_account, menu);
-		return true;
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -48,8 +72,83 @@ public class CreateAccount extends Activity {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+			
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void saveUserData(View view){
+		
+		boolean checkData=true;
+		
+		firstName = firstNameView.getText().toString();
+		lastName = lastNameView.getText().toString();
+		emailAddress = emailAddressView.getText().toString();
+		password = passwordView.getText().toString();
+		confirmPassword= confirmPasswordView.getText().toString();
+		
+		checkData=verifyData();
+		
+		//if(checkData==true){
+		Intent intent = new Intent(this, OwnersHome.class);	
+		startActivity(intent);
+		//}
+	}
+	
+	public boolean verifyData(){
+		View focusView = null;
+		boolean dataCheck=true;
+		
+		firstNameView.setError(null);
+		lastNameView.setError(null);
+		emailAddressView.setError(null);
+		passwordView.setError(null);
+		confirmPasswordView.setError(null);
+		
+		if (TextUtils.isEmpty(firstName)){
+			firstNameView.setError(getString(R.string.error_field_required));
+			focusView = firstNameView;
+			dataCheck=false;
+		}
+		
+		if (TextUtils.isEmpty(lastName)){
+			lastNameView.setError(getString(R.string.error_field_required));
+			focusView = lastNameView;
+			dataCheck=false;
+		}
+		
+		if (TextUtils.isEmpty(emailAddress)){
+			emailAddressView.setError(getString(R.string.error_field_required));
+			focusView = emailAddressView;
+			dataCheck=false;
+		}
+		
+		if (TextUtils.isEmpty(password)){
+			passwordView.setError(getString(R.string.error_field_required));
+			focusView = passwordView;
+			dataCheck=false;
+		}else if (password.length() < 4) {
+			passwordView.setError(getString(R.string.error_invalid_password));
+			focusView = passwordView;
+			dataCheck = false;
+		}
+		
+		if (TextUtils.isEmpty(confirmPassword)){
+			confirmPasswordView.setError(getString(R.string.error_field_required));
+			focusView = confirmPasswordView;
+			dataCheck=false;
+		}else
+		if(password.equals(confirmPassword)==false){
+			confirmPasswordView.setError(getString(R.string.passwordMatchError));
+			focusView = confirmPasswordView;
+			dataCheck=false;
+		}
+				
+	return dataCheck;	
+	}
+	
 }
+	
+	
+	
+

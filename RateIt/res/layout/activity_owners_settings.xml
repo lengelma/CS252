@@ -1,0 +1,111 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:id="@+id/ScrollView01" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:background="@drawable/settingsbackground">
+    
+<RelativeLayout android:id="@+id/Layout" 
+    android:layout_width="fill_parent" 
+    android:layout_height="462dp">
+
+<LinearLayout 
+    android:id="@+id/LinearLayout02" 
+    android:layout_width="match_parent" 
+    android:layout_height="400dp" 
+    android:orientation="vertical">
+<TextView 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="@string/firstname" 
+    android:textSize="16sp"/>
+
+<EditText android:layout_width="fill_parent"
+    android:layout_height="46dp" 
+    android:maxLines="1" 
+    android:singleLine="true"/>
+
+<TextView 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="@string/lastname" 
+    android:textSize="16sp"/>
+<EditText 
+    android:layout_width="fill_parent" 
+    android:layout_height="46dp" 
+    android:maxLines="1" 
+    android:singleLine="true"/>
+<TextView 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="@string/email" 
+    android:textSize="16sp"
+    android:maxLines="1" 
+    android:singleLine="true"/>
+<EditText
+     android:layout_width="fill_parent" 
+     android:layout_height="46dp" 
+     android:ems="10" 
+     android:inputType="textEmailAddress"/>
+<TextView 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="@string/old_password" 
+    android:textSize="16sp"/>
+<EditText 
+    android:layout_width="fill_parent" 
+    android:layout_height="46dp" 
+    android:ems="10"
+    android:inputType="textPassword"
+    android:hint="@string/old_pass_enter" 
+    android:maxLines="1" 
+    android:singleLine="true"/>
+<TextView 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="@string/new_password" 
+    android:textSize="16sp"/>
+<EditText 
+    android:layout_width="fill_parent" 
+    android:layout_height="46dp" 
+    android:ems="10" 
+    android:inputType="textPassword"
+    android:hint="@string/new_pass_enter"
+    android:maxLines="1" 
+    android:singleLine="true"/>
+
+<TextView 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="@string/password_again" 
+    android:textSize="16sp"/>
+<EditText 
+    android:layout_width="fill_parent" 
+    android:layout_height="46dp" 
+    android:ems="10" 
+    android:inputType="textPassword"
+    android:hint="@string/new_pass_enter"
+    android:maxLines="1" 
+    android:singleLine="true"/>
+
+
+</LinearLayout>
+<Button 
+    android:id="@+id/custom_cancel" 
+    android:layout_width="120dp" 
+    android:layout_height="60dip" 
+    android:layout_alignParentBottom="true" 
+    android:layout_alignParentRight="true" 
+    android:text="@string/cancel" 
+    android:onClick="cancelSetting"/>
+
+<Button 
+    android:id="@+id/custom_save" 
+    android:layout_width="wrap_content" 
+    android:layout_height="60dip" 
+    android:layout_alignParentBottom="true" 
+    android:layout_alignParentLeft="true" 
+    android:layout_toLeftOf="@+id/custom_cancel" 
+    android:text="@string/save"
+    android:onClick="editUserData"/>
+</RelativeLayout>
+</ScrollView>

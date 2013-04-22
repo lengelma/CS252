@@ -22,8 +22,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int buttonBarStyle=0x7f010000;
     }
     public static final class color {
+        public static final int black=0x7f040001;
         public static final int black_overlay=0x7f040000;
-        public static final int white_text=0x7f040001;
+        public static final int silver=0x7f040003;
+        public static final int white_text=0x7f040002;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -36,72 +38,121 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int accountbackground=0x7f020000;
+        public static final int addbusinessbackground=0x7f020001;
+        public static final int buttonbackground=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int loginbackground=0x7f020004;
+        public static final int mainbackground=0x7f020005;
+        public static final int settingsbackground=0x7f020006;
+        public static final int viewbusinessbackground=0x7f020007;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f0a000b;
-        public static final int action_settings=0x7f0a000a;
-        public static final int button1=0x7f0a0001;
-        public static final int button2=0x7f0a0002;
-        public static final int day_spinner=0x7f0a0000;
-        public static final int email=0x7f0a0006;
-        public static final int login=0x7f0a0008;
-        public static final int login_form=0x7f0a0005;
-        public static final int login_status=0x7f0a0003;
-        public static final int login_status_message=0x7f0a0004;
-        public static final int password=0x7f0a0007;
-        public static final int sign_in_button=0x7f0a0009;
+        public static final int Layout=0x7f0a0001;
+        public static final int LinearLayout01=0x7f0a0002;
+        public static final int LinearLayout02=0x7f0a001b;
+        public static final int LinearLayout_createAccount=0x7f0a000f;
+        public static final int RLayout=0x7f0a0019;
+        public static final int ScrollView01=0x7f0a0000;
+        public static final int Spinner01=0x7f0a0007;
+        public static final int Spinner02=0x7f0a0005;
+        public static final int Spinner03=0x7f0a000a;
+        public static final int Spinner04=0x7f0a000b;
+        public static final int TextView01=0x7f0a0009;
+        public static final int TextView02=0x7f0a000c;
+        public static final int action_forgot_password=0x7f0a001d;
+        public static final int action_settings=0x7f0a001c;
+        public static final int button1=0x7f0a0012;
+        public static final int button2=0x7f0a000e;
+        public static final int button3=0x7f0a000d;
+        public static final int custom_cancel=0x7f0a0010;
+        public static final int custom_save=0x7f0a0011;
+        public static final int email=0x7f0a0016;
+        public static final int login=0x7f0a0018;
+        public static final int login_form=0x7f0a0015;
+        public static final int login_status=0x7f0a0013;
+        public static final int login_status_message=0x7f0a0014;
+        public static final int password=0x7f0a0017;
+        public static final int sign_in_button=0x7f0a001a;
+        public static final int textView1=0x7f0a0006;
+        public static final int textView2=0x7f0a0004;
+        public static final int textView3=0x7f0a0003;
+        public static final int textView4=0x7f0a0008;
     }
     public static final class layout {
         public static final int activity_add_business=0x7f030000;
         public static final int activity_create_account=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int activity_owners_login=0x7f030003;
+        public static final int activity_owners_home=0x7f030003;
+        public static final int activity_owners_login=0x7f030004;
+        public static final int activity_owners_settings=0x7f030005;
+        public static final int activity_view_business=0x7f030006;
     }
     public static final class menu {
         public static final int add_business=0x7f090000;
         public static final int create_account=0x7f090001;
         public static final int main=0x7f090002;
-        public static final int owners_login=0x7f090003;
+        public static final int owners_home=0x7f090003;
+        public static final int owners_login=0x7f090004;
+        public static final int owners_settings=0x7f090005;
+        public static final int view_business=0x7f090006;
     }
     public static final class string {
-        public static final int action_forgot_password=0x7f06001c;
+        public static final int action_forgot_password=0x7f06002e;
         public static final int action_settings=0x7f060001;
-        public static final int action_sign_in_register=0x7f06001a;
-        public static final int action_sign_in_short=0x7f06001b;
+        public static final int action_sign_in_register=0x7f06002c;
+        public static final int action_sign_in_short=0x7f06002d;
+        public static final int addbusiness=0x7f060020;
         public static final int address=0x7f060007;
         public static final int app_name=0x7f060000;
-        public static final int begin_day=0x7f06000a;
-        public static final int create_account=0x7f060022;
+        public static final int begin_day=0x7f06000c;
+        public static final int begin_time=0x7f06000f;
+        public static final int cancel=0x7f06001d;
+        public static final int create_account=0x7f060034;
         public static final int customer=0x7f060003;
-        public static final int day_operation=0x7f060009;
-        public static final int email=0x7f060013;
+        public static final int day_operation=0x7f06000b;
+        public static final int email=0x7f060017;
+        public static final int end_day=0x7f06000d;
+        public static final int end_time=0x7f060010;
         public static final int enter_address=0x7f060008;
-        public static final int enter_email=0x7f060014;
-        public static final int enter_fristname=0x7f060010;
-        public static final int enter_lastname=0x7f060012;
+        public static final int enter_email=0x7f060018;
+        public static final int enter_firstname=0x7f060014;
+        public static final int enter_lastname=0x7f060016;
         public static final int enter_name=0x7f060006;
-        public static final int enter_password=0x7f060016;
-        public static final int enter_website=0x7f06000c;
-        public static final int error_field_required=0x7f060021;
-        public static final int error_incorrect_password=0x7f060020;
-        public static final int error_invalid_email=0x7f06001e;
-        public static final int error_invalid_password=0x7f06001f;
-        public static final int firstname=0x7f06000f;
-        public static final int lastname=0x7f060011;
-        public static final int login_progress_signing_in=0x7f06001d;
+        public static final int enter_password=0x7f06001a;
+        public static final int enter_website=0x7f06000a;
+        public static final int error_field_required=0x7f060033;
+        public static final int error_incorrect_password=0x7f060032;
+        public static final int error_invalid_email=0x7f060030;
+        public static final int error_invalid_password=0x7f060031;
+        public static final int firstname=0x7f060013;
+        public static final int hours_operation=0x7f06000e;
+        public static final int lastname=0x7f060015;
+        public static final int login_progress_signing_in=0x7f06002f;
         public static final int name=0x7f060005;
+        public static final int new_pass_enter=0x7f060027;
+        public static final int new_password=0x7f060026;
+        public static final int old_pass_enter=0x7f060025;
+        public static final int old_password=0x7f060024;
         public static final int owner=0x7f060002;
-        public static final int password=0x7f060015;
+        public static final int password=0x7f060019;
+        public static final int passwordMatchError=0x7f06001e;
+        public static final int password_again=0x7f06001b;
         /**  Strings related to login 
          */
-        public static final int prompt_email=0x7f060018;
-        public static final int prompt_password=0x7f060019;
-        public static final int save=0x7f06000d;
+        public static final int prompt_email=0x7f06002a;
+        public static final int prompt_password=0x7f06002b;
+        public static final int save=0x7f06001c;
+        public static final int settings=0x7f060022;
         public static final int title_activity_add_business=0x7f060004;
-        public static final int title_activity_create_account=0x7f06000e;
-        public static final int title_activity_owners_login=0x7f060017;
-        public static final int website=0x7f06000b;
+        public static final int title_activity_create_account=0x7f060012;
+        public static final int title_activity_owners_home=0x7f06001f;
+        public static final int title_activity_owners_login=0x7f060029;
+        public static final int title_activity_owners_settings=0x7f060023;
+        public static final int title_activity_view_business=0x7f060028;
+        public static final int upload_pic=0x7f060011;
+        public static final int viewbusiness=0x7f060021;
+        public static final int website=0x7f060009;
     }
     public static final class style {
         /** 

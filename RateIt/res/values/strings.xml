@@ -10,8 +10,15 @@
     <string name="enter_name">Name of your Business</string>
     <string name="address">Address:</string>
     <string name="enter_address">Address of your Business</string>
-    <string name="day_operation">Days of Operation</string>
-    <string name="begin_day">Begin Day</string>
+    <string name="website">Website:</string>
+    <string name="enter_website">Webpage of your Business</string>
+    <string name="day_operation">Days of Operation:</string>
+    <string name="begin_day">Begin Day:</string>
+    <string name="end_day">End Day:</string>
+    <string name="hours_operation">Hours of Operation:</string>
+    <string name="begin_time">Start Time:</string>
+    <string name="end_time">Closing Time:</string>
+    <string name="upload_pic">Upload Business Pic</string>
 
     <string-array name="day_array">
         <item>Monday</item>
@@ -23,24 +30,29 @@
         <item>Sunday</item>
     </string-array>
 
-    <string name="website">Website:</string>
-    <string name="enter_website">Webpage of your Business</string>
-    <string name="save">Save</string>
-    
-    
     <string name="title_activity_create_account">Create New Account</string>
-	<string name="firstname">First Name:</string>
-	<string name="enter_fristname">Enter your First Name</string>
-	<string name="lastname">Last Name:</string>
-	<string name="enter_lastname">Enter your Last Name</string>
-	<string name="email">Email Address:</string>
-	<string name="enter_email">Enter your email address</string>
-	<string name="password">Password:</string>
-	<string name="enter_password">Password</string>
-	
+    <string name="firstname">First Name:</string>
+    <string name="enter_firstname">Enter your First Name</string>
+    <string name="lastname">Last Name:</string>
+    <string name="enter_lastname">Enter your Last Name</string>
+    <string name="email">Email Address:</string>
+    <string name="enter_email">Enter your email address</string>
+    <string name="password">Password:</string>
+    <string name="enter_password">Password</string>
+    <string name="password_again">Confirm Password:</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="passwordMatchError">Passwords do not match</string>
     
-	
-    
-    
-    
+    <string name="title_activity_owners_home">Owners Home</string>
+    <string name="addbusiness">Create/Add Business</string>
+    <string name="viewbusiness">View Business</string>
+    <string name="settings">Settings</string>
+    <string name="title_activity_owners_settings">OwnersSettings</string>
+    <string name="old_password">Old Password:</string>
+    <string name="old_pass_enter">Enter your old password</string>
+    <string name="new_password">New Password:</string>
+    <string name="new_pass_enter">Enter your new password</string>
+    <string name="title_activity_view_business">View/Edit Business</string>
+
 </resources>

@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import java.sql.*;
-
-import prj.src.rateit.util.DatabaseAPI;
 
 public class MainActivity extends Activity {
 
@@ -31,7 +28,8 @@ public class MainActivity extends Activity {
     }
     
     public void customersFrame(View view){
-        DatabaseAPI.test();    	
+    	
+    	
     }
         
 }

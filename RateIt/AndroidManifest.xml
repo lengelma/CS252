@@ -26,7 +26,7 @@
             android:name="prj.src.rateit.OwnersLogin"
             android:label="@string/title_activity_owners_login"
             android:parentActivityName="prj.src.rateit.OwnersLogin"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:windowSoftInputMode="stateHidden|adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="prj.src.rateit.OwnersLogin" />
@@ -34,7 +34,8 @@
         <activity
             android:name="prj.src.rateit.AddBusiness"
             android:label="@string/title_activity_add_business"
-            android:parentActivityName="prj.src.rateit.AddBusiness" >
+            android:parentActivityName="prj.src.rateit.AddBusiness"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="prj.src.rateit.AddBusiness" />
@@ -42,10 +43,37 @@
         <activity
             android:name="prj.src.rateit.CreateAccount"
             android:label="@string/title_activity_create_account"
-            android:parentActivityName="prj.src.rateit.CreateAccount" >
+            android:parentActivityName="prj.src.rateit.CreateAccount"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="prj.src.rateit.CreateAccount" />
+        </activity>
+        <activity
+            android:name="prj.src.rateit.OwnersHome"
+            android:label="@string/title_activity_owners_home"
+            android:parentActivityName="prj.src.RateIt.OwnersHome" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="prj.src.RateIt.OwnersHome" />
+        </activity>
+        <activity
+            android:name="prj.src.rateit.OwnersSettings"
+            android:label="@string/title_activity_owners_settings"
+            android:parentActivityName="prj.src.RateIt.OwnersSettings"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="prj.src.RateIt.OwnersSettings" />
+        </activity>
+        <activity
+            android:name="prj.src.rateit.ViewBusiness"
+            android:label="@string/title_activity_view_business"
+            android:parentActivityName="prj.src.RateIt.ViewBusiness" 
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="prj.src.RateIt.ViewBusiness" />
         </activity>
     </application>
 

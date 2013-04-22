@@ -17,8 +17,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import java.sql.*;
-
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
@@ -88,6 +86,8 @@ public class OwnersLogin extends Activity {
 					@Override
 					public void onClick(View view) {
 						attemptLogin();
+						//Intent intent = new Intent(null, OwnersHome.class);	
+					    //startActivity(intent);
 					}
 				});
 		
@@ -156,6 +156,7 @@ public class OwnersLogin extends Activity {
 			mPasswordView.setError(getString(R.string.error_field_required));
 			focusView = mPasswordView;
 			cancel = true;
+			
 		} else if (mPassword.length() < 4) {
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
@@ -218,6 +219,7 @@ public class OwnersLogin extends Activity {
 						public void onAnimationEnd(Animator animation) {
 							mLoginFormView.setVisibility(show ? View.GONE
 									: View.VISIBLE);
+							
 						}
 					});
 		} else {
@@ -280,7 +282,7 @@ public class OwnersLogin extends Activity {
 		//Send the request to create a new Account
 		public void createNewAccount(View view){
 			Intent intent = new Intent(this, CreateAccount.class);	
-		    startActivity(intent);		
+			startActivityForResult(intent,1);		
 		}
 }
 
