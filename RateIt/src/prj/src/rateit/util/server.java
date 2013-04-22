@@ -22,8 +22,9 @@ public class server {
 	            t.start();
 	            i++;
 	         }
-	      }catch (IOException e){  
+	      }catch (IOException e){
 	         e.printStackTrace();
+	         System.out.println("Server :(");
 	      }
 	   }
 }
@@ -85,38 +86,27 @@ class ThreadedHandler implements Runnable
    
    void handleRequest( InputStream inStream, OutputStream outStream) {
         Scanner in = new Scanner(inStream);         
-        PrintWriter out = new PrintWriter(outStream, 
-                                      true /* autoFlush */);
+        PrintWriter out = new PrintWriter(outStream, true /* autoFlush */);
 
 	// Get parameters of the call
 	String request = in.nextLine();
 
-	System.out.println("Request="+request);
-
-	String requestSyntax = "Syntax: COMMAND|test|hama|OTHER|ARGS";
-
 	try {
 		// Get arguments.
 		// The format is COMMAND|USER|PASSWORD|OTHER|ARGS...
-		String [] args = request.split("\\|");
+	//	String [] args = request;
+		//request.split("\\|");
 
 		// Print arguments
-		for (int i = 0; i < args.length; i++) {
-			System.out.println("Arg "+i+": "+args[i]);
-		}
+	//	for (int i = 0; i < args.length; i++) {
+	//		System.out.println("Arg "+i+": "+args[i]);
+	//  System.out.println("url="+url+" user="+username+" password="+password);
 
 		// Get command and password
-		String command = args[0];
-		String user = args[1];
-		String password = args[2];
-
-		// Check user and password. Now it is sent in plain text.
-		// You should use Secure Sockets (SSL) for a production environment.
-		/*if ( !user.equals(ServerUser) || !password.equals(ServerPassword)) {
-			System.out.println("Bad user or password");
-			out.println("Bad user or password");
-			return;
-		}*/
+		String command = request;
+		//args[0];
+		//String user = args[1];
+		//String password = args[2];
 
 		// Do the operation
 		if (command.equals("testing")){
@@ -125,36 +115,27 @@ class ThreadedHandler implements Runnable
 		
 	}
 	catch (Exception e) {		
-		System.out.println(requestSyntax);
-		out.println(requestSyntax);
+	//	System.out.println(requestSyntax);
+	//	out.println(requestSyntax);
 
 		System.out.println(e.toString());
 		out.println(e.toString());
+		System.out.println("Handling :(");
 	}
    }
 
    public void run() {  
-      try
-      { 
-
-         try
-         {
+      try{ 
+         try{
             InputStream inStream = incoming.getInputStream();
             OutputStream outStream = incoming.getOutputStream();
-	    handleRequest(inStream, outStream);
-
-         }
-      	 catch (IOException e)
-         {  
+            handleRequest(inStream, outStream);
+         }catch (IOException e){  
             e.printStackTrace();
-         }
-         finally
-         {
+         }finally{
             incoming.close();
          }
-      }
-      catch (IOException e)
-      {  
+      }catch (IOException e){  
          e.printStackTrace();
       }
    }
