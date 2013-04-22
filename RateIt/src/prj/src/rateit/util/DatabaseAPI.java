@@ -2,6 +2,8 @@ package prj.src.rateit.util;
 
 import java.net.*;
 import java.sql.*;
+import java.util.Arrays;
+import java.util.List;
 import java.io.*;
 /*NOTE
  * I'm not sure if the ip address in the url is correct or not.
@@ -118,7 +120,8 @@ public class DatabaseAPI {
 		OutputStream outToServer;
 		InputStream inFromServer;
 		String answer=null;
-		String[] ans = null;
+		List<String> ans = null;
+		String[] strarray = null;
 		try{
 			requestSocket = new Socket("128.10.25.101",33766);
 			outToServer = requestSocket.getOutputStream();
@@ -134,76 +137,89 @@ public class DatabaseAPI {
 		}catch(Exception err){}
 		
 		if(answer!=null){
-			
+		ans = Arrays.asList(answer.split("\\s*,\\s*"));
+		strarray = ans.toArray(new String[0]);
 			
 		}
 		
-		return ans;
+		return strarray;
 	}
 	
 	/**
 	 * Gets the names of all businesses sorted in the business table
 	 * Returns them as a ResultSet object
 	 */
-	public ResultSet getAllBusiness(){
-		
+	public String[] getAllBusiness(){
+		Socket requestSocket;
+		OutputStream outToServer;
+		InputStream inFromServer;
+		String answer=null;
+		List<String> ans = null;
+		String[] strarray = null;
 		try{
-			Class.forName("com.gjt.mm.mysql.Driver");
-			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+			requestSocket = new Socket("128.10.25.101",33766);
+			outToServer = requestSocket.getOutputStream();
+			inFromServer = requestSocket.getInputStream();
+			DataOutputStream out =new DataOutputStream(outToServer);
+			DataInputStream in = new DataInputStream(inFromServer);
 			
-			PreparedStatement stat = con.prepareStatement("SELECT businessName FROM business");
-			ResultSet r = stat.executeQuery();
-			return r;
+			out.writeUTF("GETALLBUISNESSES");
+			answer = in.readUTF();
+			
+			requestSocket.close();
+			
 		}catch(Exception err){}
 		
-		return null;
+		if(answer!=null){
+		ans = Arrays.asList(answer.split("\\s*,\\s*"));
+		strarray = ans.toArray(new String[0]);
+			
+		}
+		return strarray;
 	}
 	/**
 	 * Retrieves information for the chosen business from the business table
 	 * Returns the values as a ResultSet object
 	 * Currently only works properly if there is only one business of that name in the table
 	 */
-	public ResultSet getBusinessInfo(String business){
+	public String getBusinessInfo(String business){
+		Socket requestSocket;
+		OutputStream outToServer;
+		InputStream inFromServer;
+		String answer=null;
 		try{
-			Class.forName("com.gjt.mm.mysql.Driver");
-			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
+			requestSocket = new Socket("128.10.25.101",33766);
+			outToServer = requestSocket.getOutputStream();
+			inFromServer = requestSocket.getInputStream();
+			DataOutputStream out =new DataOutputStream(outToServer);
+			DataInputStream in = new DataInputStream(inFromServer);
 			
-			PreparedStatement stat = con.prepareStatement("SELECT businessName, description, address, monHours, tueHours," +
-					"wedHours, thrHours, friHours, satHours, sunHours, rating, website FROM business WHERE businessName LIKE ?");
-			//PreparedStatement stat = con.prepareStatement("SELECT * FROM business WHERE businessName LIKE ?");
-			stat.setString(1, business);
-			ResultSet r = stat.executeQuery();
-			return r;
+			out.writeUTF("INFO "+business);
+			answer = in.readUTF();
+			
+			requestSocket.close();
+			
 		}catch(Exception err){}
 		
-		return null;
+		return answer;
 	}
 	/**
 	 * Allows an owner to change all information about a business with name oName
 	 * Currently all information must be entered at once
 	 * Currently only works properly if there is only one business with the name in the table
 	 */
-	public void updateBusiness(String oName, String email, String business, String des, String address, String web, String m, String t, String w, String r, String f, String s, String u){
+	public void updateBusiness(String Name, String email, String business, String desc, String address, String web, String mon, String tue, String wed, String thr, String fri, String sat, String sun){
+		Socket requestSocket;
+		OutputStream outToServer;
 		try{
-			Class.forName("com.gjt.mm.mysql.Driver");
-			Connection con =  DriverManager.getConnection("jdbc:mysql://128.10.2.13:33066/lab6v1", "user", "cs252");
-			
-			PreparedStatement stat = con.prepareStatement("UPDATE business SET businessName=?, description=?, address=?, monHours=?, tueHours=?," +
-					" wedHours=?, thrHours=?, friHours=?, satHours=?, sunHours=?, website=? WHERE businessName LIKE ?");
-			stat.setString(1, business);
-			stat.setString(2, des);
-			stat.setString(3, address);
-			stat.setString(4, m);
-			stat.setString(5, t);
-			stat.setString(6, w);
-			stat.setString(7, r);
-			stat.setString(8, f);
-			stat.setString(9, s);
-			stat.setString(10, u);
-			stat.setString(11, web);
-			stat.setString(12, oName);
-			stat.executeUpdate();
+			requestSocket = new Socket("128.10.25.101",33766);
+			outToServer = requestSocket.getOutputStream();
+			DataOutputStream out =new DataOutputStream(outToServer);
+			out.writeUTF("UPDATE "+email+" "+business+" "+desc+" "+address+" "+web+" "+mon+" "+tue+" "+wed+" "+thr+" "+fri+" "+sat+" "+sun);
+			requestSocket.close();
+				
 		}catch(Exception err){}
+
 	}
 	/**
 	 * Allows a user to enter a row with comment and rating into the users table
