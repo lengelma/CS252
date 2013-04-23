@@ -1,8 +1,11 @@
 package prj.src.rateit;
 
+import prj.src.rateit.util.DatabaseAPI;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -28,8 +31,7 @@ public class MainActivity extends Activity {
     }
     
     public void customersFrame(View view){
-    	
-    	
-    }
-        
+    	//DatabaseAPI.rate(0, "cs252");
+    	DatabaseAPI.addBusiness("ldengelman@gmail.com","Cool corp","We're cool","1337 cool road","7","6","5","4","3","2","1","cool.com");
+    }       
 }

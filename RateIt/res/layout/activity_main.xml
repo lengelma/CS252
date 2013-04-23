@@ -27,6 +27,7 @@
         android:layout_alignLeft="@+id/button2"
         android:layout_below="@+id/button2"
         android:layout_marginTop="63dp"
+        android:onClick="customersFrame"
         android:text="@string/customer"
         android:textColor="@color/white_text" />
 
