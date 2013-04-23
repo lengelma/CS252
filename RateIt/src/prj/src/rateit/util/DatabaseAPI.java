@@ -1,12 +1,9 @@
 package prj.src.rateit.util;
 
 import java.net.*;
-import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 import java.io.*;
-
-import android.util.Log;
 /*NOTE
  * I'm not sure if the ip address in the url is correct or not.
  * However, the server will be listening to port 33066, so that part is correct
@@ -44,9 +41,39 @@ public class DatabaseAPI {
 	
 	/**
 	 *Adds a new owner to the database
-	 *returns 1 if successful, -1 if not 
+	 *returns true if successful, false if not.
 	 */
-	public static void addOwner(String email, String password, String first, String last){
+	public static boolean addOwner(String email, String password, String first, String last){
+		Socket requestSocket;
+		PrintWriter out;
+		BufferedReader in;
+		String answer = null;
+		try{
+			System.out.println("ATTEMPTING TO CONNECT!");
+			requestSocket = new Socket("128.10.25.101",7755);
+			System.out.println("CONNECTED!");
+			out = new PrintWriter(requestSocket.getOutputStream(),true);
+			in = new BufferedReader(new InputStreamReader(requestSocket.getInputStream()));
+			out.println("ADDOWNER|"+email+"|"+password+"|"+first+"|"+last);
+			answer = in.readLine();
+			requestSocket.close(); 
+			
+		}catch(Exception err){
+			System.out.println(err.toString());
+		}
+		if(answer.equals("true")){
+			System.out.println("SUCCESSFULLY CREATED SOMEONE!");
+			return true;			
+		}else{
+			System.out.println("FAILURE!");
+			return false;
+		}
+	}
+	
+	/**
+	 *Updates an owner's information
+	 */
+	public static void updateOwner(String email,String newemail, String password, String first, String last){
 		Socket requestSocket;
 		PrintWriter out;
 		try{
@@ -54,7 +81,7 @@ public class DatabaseAPI {
 			requestSocket = new Socket("128.10.25.101",7755);
 			System.out.println("CONNECTED!");
 			out = new PrintWriter(requestSocket.getOutputStream(),true);
-			out.println("ADDOWNER|"+email+"|"+password+"|"+first+"|"+last);
+			out.println("UPDATEOWNER|"+email+"|"+newemail+"|"+password+"|"+first+"|"+last);
 			requestSocket.close(); 
 			
 		}catch(Exception err){
@@ -63,9 +90,7 @@ public class DatabaseAPI {
 	}
 	
 	/**
-	 *Adds a new Buisness to the database
-	 *returns the new Buisness's id if successful
-	 *-1 if not. 
+	 *Adds a new Business to the database
 	 */
 	public static void addBusiness(String email, String business, String desc, String address, String web, String mon, String tue, String wed, String thr, String fri, String sat, String sun){
 		Socket requestSocket;
@@ -94,9 +119,7 @@ public class DatabaseAPI {
 		BufferedReader in;
 		String answer = null;
 		try{
-			System.out.println("ATTEMPTING TO CONNECT!");
 			requestSocket = new Socket("128.10.25.101",7755);
-			System.out.println("CONNECTED!");
 			in = new BufferedReader(new InputStreamReader(requestSocket.getInputStream()));
 			out = new PrintWriter(requestSocket.getOutputStream(),true);
 			out.println("LOGIN|"+user+"|"+password);
@@ -114,7 +137,10 @@ public class DatabaseAPI {
 		}
 	}
 	
-	public static String[] getOwnersBuisnesses(){
+	/**
+	 *Gets all information from a business
+	 */
+	public static String[] getOwnersBusinesses(String email){
 		Socket requestSocket;
 		PrintWriter out;
 		BufferedReader in;
@@ -122,13 +148,11 @@ public class DatabaseAPI {
 		List<String> ans = null;
 		String[] strarray = null;
 		try{
-			System.out.println("ATTEMPTING TO CONNECT!");
 			requestSocket = new Socket("128.10.25.101",7755);
-			System.out.println("CONNECTED!");
 			in = new BufferedReader(new InputStreamReader(requestSocket.getInputStream()));
 			out = new PrintWriter(requestSocket.getOutputStream(),true);
 			
-			out.println("GETOWNERSBUISNESSES");
+			out.println("GETOWNERSBUSINESSES|"+email);
 			answer = in.readLine();
 			
 			requestSocket.close();
@@ -136,18 +160,20 @@ public class DatabaseAPI {
 		}catch(Exception err){}
 		
 		if(answer!=null){
-			ans = Arrays.asList(answer.split("\\s*,\\s*"));
+			ans = Arrays.asList(answer.split("\\|"));
 			strarray = ans.toArray(new String[0]);
+			for(int i=0;i<strarray.length;i++){
+				System.out.println(strarray[i]);
+			}
 		}
 		return strarray;
-		
 	}
 			
 	/**
 	 * Gets the names of all businesses sorted in the business table
 	 * Returns them as a ResultSet object
 	 */
-	public static String[] getAllBusiness(){
+	public static String[] getAllBusinesses(){
 		Socket requestSocket;
 		PrintWriter out;
 		BufferedReader in;
@@ -155,13 +181,11 @@ public class DatabaseAPI {
 		List<String> ans = null;
 		String[] strarray = null;
 		try{
-			System.out.println("ATTEMPTING TO CONNECT!");
 			requestSocket = new Socket("128.10.25.101",7755);
-			System.out.println("CONNECTED!");
 			in = new BufferedReader(new InputStreamReader(requestSocket.getInputStream()));
 			out = new PrintWriter(requestSocket.getOutputStream(),true);
 			
-			out.println("GETALLBUISNESSES");
+			out.println("GETALLBUSINESSES");
 			answer = in.readLine();
 			
 			requestSocket.close();
@@ -169,8 +193,11 @@ public class DatabaseAPI {
 		}catch(Exception err){}
 		
 		if(answer!=null){
-			ans = Arrays.asList(answer.split("\\s*,\\s*"));
+			ans = Arrays.asList(answer.split("\\|"));
 			strarray = ans.toArray(new String[0]);
+			for(int i=0;i<strarray.length;i++){
+				System.out.println(strarray[i]);
+			}
 		}
 		return strarray;
 	}
@@ -178,43 +205,49 @@ public class DatabaseAPI {
 	 * Retrieves information for the chosen business from the business table
 	 * Returns the values as a ResultSet object
 	 * Currently only works properly if there is only one business of that name in the table
+	 * 0BusinessName | 1Description | 2Address | 3Mon | 4Tues | 5Wed | 6Thurs | 7Fri | 8Sat | 9Sun | 10Rating | 11Website
 	 */
-	public static String getBusinessInfo(String business){
+	public static String[] getBusinessInfo(String business){
 		Socket requestSocket;
 		PrintWriter out;
 		BufferedReader in;
-		String answer="Error Loading Buisness Info";
+		String answer=null;
+		List<String> ans = null;
+		String[] strarray = null;
 		try{
-			System.out.println("ATTEMPTING TO CONNECT!");
 			requestSocket = new Socket("128.10.25.101",7755);
-			System.out.println("CONNECTED!");
-			out = new PrintWriter(requestSocket.getOutputStream(),true);
 			in = new BufferedReader(new InputStreamReader(requestSocket.getInputStream()));
-			out.println("INFO "+business);
+			out = new PrintWriter(requestSocket.getOutputStream(),true);
 			
-			answer = in.readLine();	
-			requestSocket.close(); 
+			out.println("INFO|"+business);
+			answer = in.readLine();
 			
-		}catch(Exception err){
-			System.out.println(err.toString());
-		}
+			requestSocket.close();
+			
+		}catch(Exception err){}
 		
-		return answer;
+		if(answer!=null){
+			ans = Arrays.asList(answer.split("\\|"));
+			strarray = ans.toArray(new String[0]);
+			for(int i=0;i<strarray.length;i++){
+				System.out.println(strarray[i]);
+			}
+		}
+		return strarray;
 	}
 	/**
 	 * Allows an owner to change all information about a business with name oName
 	 * Currently all information must be entered at once
 	 * Currently only works properly if there is only one business with the name in the table
+	 * 0EMAIL|1BUSINESS|2DESCRIPTION|3ADDRESS|4MONDAY|5TUESDAY|6WEDNESDAY|7THURSDAY|8FRIDAY|9SATURDAY|10SUNDAY|11EMAIL
 	 */
-	public static void updateBusiness(String Name, String email, String business, String desc, String address, String web, String mon, String tue, String wed, String thr, String fri, String sat, String sun){
+	public static void updateBusiness(String email, String business, String desc, String address, String mon, String tue, String wed, String thr, String fri, String sat, String sun, String web){
 		Socket requestSocket;
 		PrintWriter out;
 		try{
-			System.out.println("ATTEMPTING TO CONNECT!");
 			requestSocket = new Socket("128.10.25.101",7755);
-			System.out.println("CONNECTED!");
 			out = new PrintWriter(requestSocket.getOutputStream(),true);
-			out.println("UPDATE|"+email+"|"+business+"|"+desc+"|"+address+"|"+web+"|"+mon+"|"+tue+"|"+wed+"|"+thr+"|"+fri+"|"+sat+"|"+sun);			
+			out.println("UPDATE|"+email+"|"+business+"|"+desc+"|"+address+"|"+mon+"|"+tue+"|"+wed+"|"+thr+"|"+fri+"|"+sat+"|"+sun+"|"+web);			
 			requestSocket.close(); 
 			
 		}catch(Exception err){
@@ -229,9 +262,7 @@ public class DatabaseAPI {
 		Socket requestSocket;
 		PrintWriter out;
 		try{
-			System.out.println("ATTEMPTING TO CONNECT!");
 			requestSocket = new Socket("128.10.25.101",7755);
-			System.out.println("CONNECTED!");
 			out = new PrintWriter(requestSocket.getOutputStream(),true);
 			out.println("RATE|"+business+"|"+rate);
 			requestSocket.close(); 
@@ -240,20 +271,23 @@ public class DatabaseAPI {
 			System.out.println(err.toString());
 		}
 	}
-	
+	/**
+	 *Testing method that sends "testing" to the server. server should return okay.
+	 */
 	public static void test(){
 		
 		Socket requestSocket;
 		PrintWriter out;
-		System.out.println("TRYING TO CONNECT");
+		BufferedReader in;
 		try{
 			requestSocket = new Socket("128.10.25.101",7755);
-			System.out.println("CONNECTED");
+			in = new BufferedReader(new InputStreamReader(requestSocket.getInputStream()));
 			out = new PrintWriter(requestSocket.getOutputStream(),true);
 			out.println("testing");
+			System.out.println(in.readLine());
+			requestSocket.close();
 		}catch(Exception err){
 			System.out.println(err.toString());
-		}
-		
+		}		
 	}
 }
